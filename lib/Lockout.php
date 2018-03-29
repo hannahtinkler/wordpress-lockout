@@ -3,6 +3,7 @@
 namespace CmsLockout\Lib;
 
 use WP_User;
+use CmsLockout\Lib\Filters;
 use CmsLockout\Lib\Response;
 use CmsLockout\Lib\Settings;
 
@@ -32,10 +33,14 @@ class Lockout
      * Binds lockout functionality to user login
      * @param Settings $settings
      */
-    public function __construct(Settings $settings, Response $response)
-    {
+    public function __construct(
+        Settings $settings,
+        Response $response,
+        Filters $filters
+    ) {
         $this->settings = $settings;
         $this->response = $response;
+        $this->filters = $filters;
 
         add_action('wp_login', [$this, 'lockoutIfRequired'], null, 2);
     }
@@ -46,7 +51,7 @@ class Lockout
      *
      * @param  string $username
      * @param  WP_User $user
-     * @return void
+     * @return boolean
      */
     public function lockoutIfRequired(string $username, WP_User $user)
     {
@@ -55,7 +60,10 @@ class Lockout
 
         if ($isLocked && in_array($user->ID, $lockedUsers)) {
             $this->redirectToLockedOutPage();
+            return true;
         }
+
+        return false;
     }
 
     /**
@@ -67,11 +75,11 @@ class Lockout
     {
         $template = __DIR__ . '/../templates/locked-out.php';
 
-        $message = apply_filters(
+        $message = $this->filters->filter(
             $this->lockoutMessageFilterName,
             "You're currently locked out from this CMS"
         );
 
-        $this->response->template($template, compact('message'));
+        return $this->response->template($template, compact('message'));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace CmsLockout\Lib;
 
+use CmsLockout\Lib\Filters;
 use CmsLockout\Lib\Settings;
 use CmsLockout\Lib\Response;
 
@@ -21,6 +22,11 @@ class SettingsPage
     private $response;
 
     /**
+     * @var string
+     */
+    private $capability;
+
+    /**
      * The menu and page name for this settings page
      * @var string
      */
@@ -38,7 +44,7 @@ class SettingsPage
      *
      * @var string
      */
-    private $capabilityFilterName = 'ctp_tables:settings_capability';
+    private $capabilityFilterName = 'cms_lockout:settings_capability';
 
     /**
      * Add settings page. If form has been submitted, route to save method.
@@ -46,34 +52,19 @@ class SettingsPage
      * @param Table   $table
      * @param Triggers $triggers
      */
-    public function __construct(Settings $settings, Response $response)
-    {
+    public function __construct(
+        Settings $settings,
+        Response $response,
+        Filters $filters
+    ) {
         $this->settings = $settings;
         $this->response = $response;
+        $this->filters = $filters;
 
+        $this->setCapability();
         $this->checkForSubmissions();
 
-        $this->capability = apply_filters($this->capabilityFilterName, 'manage_options');
-
-        add_filter('admin_menu', [$this, 'addSettingsPage'], 1);
-    }
-
-    /**
-     * Check whether there is any input from the user that needs to be processed
-     *
-     * @return void
-     */
-    public function checkForSubmissions()
-    {
-        if (isset($_GET['lock'])) {
-            $this->settings->updateLockState($_GET['lock']);
-            $this->redirect(['locked' => $_GET['lock']]);
-        }
-
-        if (isset($_POST['locked_users'])) {
-            $this->settings->updateLockedUsers($_POST['locked_users']);
-            $this->redirect(['success' => 1]);
-        }
+        $this->filters->filter('admin_menu', [$this, 'addSettingsPage'], 1);
     }
 
     /**
@@ -97,15 +88,45 @@ class SettingsPage
     public function showSettingsPage()
     {
         if (!current_user_can($this->capability)) {
-            require_once __DIR__ . '/../templates/insufficient-capabilities.php';
-            wp_die();
+            $this->response->template(__DIR__ . '/../templates/insufficient-capabilities.php');
         }
 
         $allUsers = $this->getAllUsers();
         $isLocked = $this->settings->getLockedStatus();
         $lockedUsers = $this->settings->getLockedUsers();
 
-        require_once __DIR__ . '/../templates/settings.php';
+        $this->response->template(__DIR__ . '/../templates/settings.php');
+    }
+
+    /**
+     * Sets the capability required to use this plugin
+     *
+     * @return void
+     */
+    private function setCapability()
+    {
+        $this->capability = $this->filters->filter(
+            $this->capabilityFilterName,
+            'manage_options'
+        );
+    }
+
+    /**
+     * Check whether there is any input from the user that needs to be processed
+     *
+     * @return void
+     */
+    private function checkForSubmissions()
+    {
+        if (isset($_GET['lock'])) {
+            $this->settings->updateLockState($_GET['lock']);
+            $this->redirect(['locked' => $_GET['lock']]);
+        }
+
+        if (isset($_POST['locked_users'])) {
+            $this->settings->updateLockedUsers($_POST['locked_users']);
+            $this->redirect(['success' => 1]);
+        }
     }
 
     /**

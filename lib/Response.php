@@ -11,7 +11,7 @@ class Response
      * @param  array $data
      * @return void
      */
-    public function template(string $file, array $data)
+    public function template(string $file, array $data = [])
     {
         foreach ($data as $key => $value) {
             $$key = $value;

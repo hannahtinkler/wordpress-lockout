@@ -13,7 +13,14 @@
     },
     "autoload": {
         "psr-4": {
-            "CmsLockout\\": ""
+            "CmsLockout\\": "",
+            "Tests\\": "tests/"
         }
+    },
+    "require-dev": {
+        "codeception/codeception": "^2.4"
+    },
+    "require": {
+        "phpspec/prophecy": "^1.7"
     }
 }
