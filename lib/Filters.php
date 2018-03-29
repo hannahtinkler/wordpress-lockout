@@ -15,8 +15,8 @@ class Filters
      * @param  any $default
      * @return any
      */
-    public function filter(string $filter, $default)
+    public function filter(string $filter, $default, $priority = 10)
     {
-        return apply_filters($filter, $default);
+        return add_filter($filter, $default);
     }
 }
