@@ -1,0 +1,19 @@
+{
+    "name": "hannahtinkler/wp-cpt-lockout",
+    "description": "Prevents locked out users from logging into Wordpress",
+    "license": "Restricted",
+    "authors": [
+        {
+            "name": "Hannah Tinkler",
+            "email": "hannah.tinkler@gmail.com"
+        }
+    ],
+    "config": {
+        "optimize-autoloader": true
+    },
+    "autoload": {
+        "psr-4": {
+            "CmsLockout\\": ""
+        }
+    }
+}
