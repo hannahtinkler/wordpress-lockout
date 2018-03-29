@@ -96,11 +96,11 @@ class SettingsPage
             $this->response->template(__DIR__ . '/../templates/insufficient-capabilities.php');
         }
 
-        $allUsers = $this->getAllUsers();
-        $isLocked = $this->settings->getLockedStatus();
-        $lockedUsers = $this->settings->getLockedUsers();
-
-        $this->response->template(__DIR__ . '/../templates/settings.php');
+        $this->response->template(__DIR__ . '/../templates/settings.php', [
+            'allUsers' => $this->getAllUsers(),
+            'isLocked' => $this->settings->getLockedStatus(),
+            'lockedUsers' => $this->settings->getLockedUsers(),
+        ]);
     }
 
     /**

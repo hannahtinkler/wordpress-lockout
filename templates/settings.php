@@ -36,7 +36,6 @@
     <?php // Customiser for who gets locked out ?>
     <?php if (!empty($allUsers)) : ?>
         <form method="POST" class="edit-term-notes">
-            <input type="hidden" name="cpt_tables:submitted" value="1" />
             <fieldset>
                 <legend>Which users would you like to <strong>prevent</strong> from logging in when the CMS is locked?</legend>
 
