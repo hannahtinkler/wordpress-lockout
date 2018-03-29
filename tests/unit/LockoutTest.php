@@ -4,10 +4,10 @@ namespace Tests\Unit;
 
 use Codeception\Stub;
 use Prophecy\Argument;
-use CmsLockout\Lib\Filters;
-use CmsLockout\Lib\Lockout;
-use CmsLockout\Lib\Settings;
-use CmsLockout\Lib\Response;
+use WordpressLockout\Lib\Filters;
+use WordpressLockout\Lib\Lockout;
+use WordpressLockout\Lib\Settings;
+use WordpressLockout\Lib\Response;
 
 class LockoutTest extends TestCase
 {
@@ -28,7 +28,7 @@ class LockoutTest extends TestCase
 
         $filters = $this->mock(Filters::class);
         $filters->filter(
-            'cms_lockout:locked_out_message',
+            'wordpress_lockout:locked_out_message',
             "You're currently locked out from this CMS"
         )->willReturn("You're currently locked out from this CMS");
 
@@ -60,7 +60,7 @@ class LockoutTest extends TestCase
 
         $filters = $this->mock(Filters::class);
         $filters->filter(
-            'cms_lockout:locked_out_message',
+            'wordpress_lockout:locked_out_message',
             "You're currently locked out from this CMS"
         )->willReturn("You're currently locked out from this CMS");
 
@@ -92,7 +92,7 @@ class LockoutTest extends TestCase
 
         $filters = $this->mock(Filters::class);
         $filters->filter(
-            'cms_lockout:locked_out_message',
+            'wordpress_lockout:locked_out_message',
             "You're currently locked out from this CMS"
         )->willReturn("You're currently locked out from this CMS");
 
@@ -124,7 +124,7 @@ class LockoutTest extends TestCase
 
         $filters = $this->mock(Filters::class);
         $filters->filter(
-            'cms_lockout:locked_out_message',
+            'wordpress_lockout:locked_out_message',
             "You're currently locked out from this CMS"
         )->willReturn("You're currently locked out from this CMS");
 

@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name:  CMS Lockout
+Plugin Name:  Wordpress Lockout
 Plugin URI:
 Description:  Allows the locking out of users from the CMS
 Version:      1.0.0
@@ -8,7 +8,7 @@ Author:       Hannah Tinkler
 License:      Restricted
 */
 
-namespace CmsLockout;
+namespace WordpressLockout;
 
 if (!defined('WPINC')) {
     die;

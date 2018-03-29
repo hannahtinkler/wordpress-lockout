@@ -1,6 +1,6 @@
 <?php
 
-namespace CmsLockout\Lib;
+namespace WordpressLockout\Lib;
 
 /**
  * Simple wrapper around Wordpress' apply_filters function, to allow for mocking

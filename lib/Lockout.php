@@ -1,11 +1,11 @@
 <?php
 
-namespace CmsLockout\Lib;
+namespace WordpressLockout\Lib;
 
 use WP_User;
-use CmsLockout\Lib\Filters;
-use CmsLockout\Lib\Response;
-use CmsLockout\Lib\Settings;
+use WordpressLockout\Lib\Filters;
+use WordpressLockout\Lib\Response;
+use WordpressLockout\Lib\Settings;
 
 /**
  * Determines whether a user should be locked out upon login and returns response
@@ -14,17 +14,17 @@ use CmsLockout\Lib\Settings;
 class Lockout
 {
     /**
-     * @var CmsLockout\Lib\Settings
+     * @var WordpressLockout\Lib\Settings
      */
     private $settings;
 
     /**
-     * @var CmsLockout\Lib\Response
+     * @var WordpressLockout\Lib\Response
      */
     private $response;
 
     /**
-     * @var CmsLockout\Lib\Filters
+     * @var WordpressLockout\Lib\Filters
      */
     private $filters;
 
@@ -32,7 +32,7 @@ class Lockout
      * Message shown to the user when they have been locked out
      * @var string
      */
-    private $lockoutMessageFilterName = 'cms_lockout:locked_out_message';
+    private $lockoutMessageFilterName = 'wordpress_lockout:locked_out_message';
 
     /**
      * Binds lockout functionality to user login

@@ -1,10 +1,10 @@
 <?php
 
-namespace CmsLockout\Lib;
+namespace WordpressLockout\Lib;
 
-use CmsLockout\Lib\Filters;
-use CmsLockout\Lib\Settings;
-use CmsLockout\Lib\Response;
+use WordpressLockout\Lib\Filters;
+use WordpressLockout\Lib\Settings;
+use WordpressLockout\Lib\Response;
 
 /**
  * Generates the settings page for this plugin and handles any form submissions
@@ -12,17 +12,17 @@ use CmsLockout\Lib\Response;
 class SettingsPage
 {
     /**
-     * @var CmsLockout\Lib\Settings
+     * @var WordpressLockout\Lib\Settings
      */
     private $settings;
 
     /**
-     * @var CmsLockout\Lib\Response
+     * @var WordpressLockout\Lib\Response
      */
     private $response;
 
     /**
-     * @var CmsLockout\Lib\Filters
+     * @var WordpressLockout\Lib\Filters
      */
     private $filters;
 
@@ -35,13 +35,13 @@ class SettingsPage
      * The menu and page name for this settings page
      * @var string
      */
-    private $settingsPageName = 'CMS Lockout';
+    private $settingsPageName = 'Wordpress Lockout';
 
     /**
      * The slug for the settings page menu item
      * @var string
      */
-    private $settingsPageSlug = 'cms_lockout';
+    private $settingsPageSlug = 'wordpress_lockout';
 
     /**
      * The filter that plugin users can hook into to customise capability
@@ -49,7 +49,7 @@ class SettingsPage
      *
      * @var string
      */
-    private $capabilityFilterName = 'cms_lockout:settings_capability';
+    private $capabilityFilterName = 'wordpress_lockout:settings_capability';
 
     /**
      * Add settings page. If form has been submitted, route to save method.

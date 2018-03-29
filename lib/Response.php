@@ -1,6 +1,6 @@
 <?php
 
-namespace CmsLockout\Lib;
+namespace WordpressLockout\Lib;
 
 class Response
 {
