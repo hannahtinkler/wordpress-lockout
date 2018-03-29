@@ -2,10 +2,10 @@
 
 namespace CmsLockout;
 
+use CmsLockout\Lib\Lockout;
 use CmsLockout\Lib\Settings;
 use CmsLockout\Lib\Response;
 use CmsLockout\Lib\SettingsPage;
-use CmsLockout\Lib\Lockout;
 
 /**
  * Plugin base file. Controls initialisation of Plugin.

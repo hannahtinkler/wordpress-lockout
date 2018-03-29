@@ -17,7 +17,7 @@ if (!defined('WPINC')) {
 // Plugin Autoloader
 require_once __DIR__ . '/vendor/autoload.php';
 
-// Grab the core Plugin class
+// Grab the core plugin class
 $core = new Core;
 
 add_action('plugins_loaded', [$core, 'initialise']);

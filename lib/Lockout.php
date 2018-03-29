@@ -3,9 +3,13 @@
 namespace CmsLockout\Lib;
 
 use WP_User;
-use CmsLockout\Lib\Settings;
 use CmsLockout\Lib\Response;
+use CmsLockout\Lib\Settings;
 
+/**
+ * Determines whether a user should be locked out upon login and returns response
+ * template if so.
+ */
 class Lockout
 {
     /**

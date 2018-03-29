@@ -2,6 +2,9 @@
 
 namespace CmsLockout\Lib;
 
+/**
+ * Interacts with Wordpress to save and retrieve plugin settings (as options)
+ */
 class Settings
 {
     /**

@@ -5,6 +5,9 @@ namespace CmsLockout\Lib;
 use CmsLockout\Lib\Settings;
 use CmsLockout\Lib\Response;
 
+/**
+ * Generates the settings page for this plugin and handles any form submissions
+ */
 class SettingsPage
 {
     /**

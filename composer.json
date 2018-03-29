@@ -1,7 +1,7 @@
 {
-    "name": "hannahtinkler/wp-cpt-lockout",
+    "name": "hannahtinkler/wp-cms-lockout",
     "description": "Prevents locked out users from logging into Wordpress",
-    "license": "Restricted",
+    "license": "MIT",
     "authors": [
         {
             "name": "Hannah Tinkler",
