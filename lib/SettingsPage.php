@@ -22,6 +22,11 @@ class SettingsPage
     private $response;
 
     /**
+     * @var CmsLockout\Lib\Filters
+     */
+    private $filters;
+
+    /**
      * @var string
      */
     private $capability;

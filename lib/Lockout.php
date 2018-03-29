@@ -24,6 +24,11 @@ class Lockout
     private $response;
 
     /**
+     * @var CmsLockout\Lib\Filters
+     */
+    private $filters;
+
+    /**
      * Message shown to the user when they have been locked out
      * @var string
      */
