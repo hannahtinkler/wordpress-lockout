@@ -24,7 +24,8 @@ class Core
         $settings = new Settings;
         $response = new Response;
 
-        new Lockout($settings, $response, $filters);
-        new SettingsPage($settings, $response, $filters);
+        $lockout = new Lockout($settings, $response, $filters);
+
+        new SettingsPage($settings, $response, $filters, $lockout);
     }
 }

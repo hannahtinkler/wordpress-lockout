@@ -52,6 +52,18 @@ class Lockout
     }
 
     /**
+     * Gets message to display to locked user out when they log in.
+     * @return string
+     */
+    public function getMessage() : string
+    {
+        return $this->filters->apply(
+            $this->lockoutMessageFilterName,
+            $this->settings->getLockoutMessage()
+        );
+    }
+
+    /**
      * Checks if lockout is enabled and if the user trying to log in, return
      * a WP error (which WP will show to the user on the login page as an error)
      *
@@ -61,31 +73,13 @@ class Lockout
      */
     public function lockoutIfRequired(WP_User $user)
     {
-        $isLocked = $this->settings->getLockedStatus();
+        $isLocked = $this->settings->getLockState();
         $lockedUsers = $this->settings->getLockedUsers();
 
         if ($isLocked && in_array($user->ID, $lockedUsers)) {
-            $user = new WP_Error(
-                'Locked Out',
-                $this->filters->apply(
-                    $this->lockoutMessageFilterName,
-                    "You're currently locked out from this CMS, so you're unable to log in."
-                )
-            );
+            $user = new WP_Error(403, $this->getMessage());
         }
 
         return $user;
-    }
-
-    /**
-     * Shows locked out page with custom or default message
-     *
-     * @return void
-     */
-    private function displayLockedOutPage()
-    {
-        $template = __DIR__ . '/../templates/locked-out.php';
-
-        return $this->response->template($template, compact('message'));
     }
 }

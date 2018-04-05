@@ -17,7 +17,7 @@ class LockoutTest extends TestCase
         $user->ID = 5;
 
         $settings = $this->mock(Settings::class);
-        $settings->getLockedStatus()->willReturn(true);
+        $settings->getLockState()->willReturn(true);
         $settings->getLockedUsers()->willReturn([5]);
 
         $response = $this->mock(Response::class);
@@ -49,7 +49,7 @@ class LockoutTest extends TestCase
         $user->ID = 5;
 
         $settings = $this->mock(Settings::class);
-        $settings->getLockedStatus()->willReturn(true);
+        $settings->getLockState()->willReturn(true);
         $settings->getLockedUsers()->willReturn([6]);
 
         $response = $this->mock(Response::class);
@@ -81,7 +81,7 @@ class LockoutTest extends TestCase
         $user->ID = 5;
 
         $settings = $this->mock(Settings::class);
-        $settings->getLockedStatus()->willReturn(false);
+        $settings->getLockState()->willReturn(false);
         $settings->getLockedUsers()->willReturn([6]);
 
         $response = $this->mock(Response::class);
@@ -113,7 +113,7 @@ class LockoutTest extends TestCase
         $user->ID = 5;
 
         $settings = $this->mock(Settings::class);
-        $settings->getLockedStatus()->willReturn(false);
+        $settings->getLockState()->willReturn(false);
         $settings->getLockedUsers()->willReturn([5]);
 
         $response = $this->mock(Response::class);

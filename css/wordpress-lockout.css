@@ -23,3 +23,13 @@
     margin-top: 40px;
     width: 350px;
 }
+
+.wpl-settings__button-link {
+    text-decoration: none;
+}
+
+.wpl-settings__input {
+    display: block;
+    margin: 10px 0;
+    width: 100%;
+}

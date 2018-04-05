@@ -2,10 +2,6 @@
 
 namespace WordpressLockout\Lib;
 
-use WordpressLockout\Lib\Filters;
-use WordpressLockout\Lib\Settings;
-use WordpressLockout\Lib\Response;
-
 /**
  * Generates the settings page for this plugin and handles any form submissions
  */
@@ -60,11 +56,13 @@ class SettingsPage
     public function __construct(
         Settings $settings,
         Response $response,
-        Filters $filters
+        Filters $filters,
+        Lockout $lockout
     ) {
         $this->settings = $settings;
         $this->response = $response;
         $this->filters = $filters;
+        $this->lockout = $lockout;
 
         $this->setCapability();
         $this->enqueueStyleSheet();
@@ -119,8 +117,9 @@ class SettingsPage
 
         $this->response->template(__DIR__ . '/../templates/settings.php', [
             'allUsers' => $this->getAllUsers(),
-            'isLocked' => $this->settings->getLockedStatus(),
+            'isLocked' => $this->settings->getLockState(),
             'lockedUsers' => $this->settings->getLockedUsers(),
+            'lockoutMessage' => $this->lockout->getMessage(),
         ]);
     }
 
@@ -149,9 +148,24 @@ class SettingsPage
             $this->redirect(['locked' => $_GET['lock']]);
         }
 
-        if (isset($_POST['lock_users'])) {
+        if (isset($_GET['lock_all_users'])) {
+            $this->settings->updateLockedUsers(
+                array_map(function ($user) {
+                    return $user->ID;
+                }, get_users())
+            );
+
+            $this->redirect(['success' => 1]);
+        }
+
+        if (isset($_POST['lock_selected_users'])) {
             $this->settings->updateLockedUsers($_POST['locked_users'] ?? []);
             $this->redirect(['success' => 1]);
+        }
+
+        if (isset($_POST['lockout_message'])) {
+            $this->settings->updateLockoutMessage($_POST['lockout_message']);
+            $this->redirect(['message_updated' => 1]);
         }
     }
 

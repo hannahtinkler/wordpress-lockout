@@ -41,7 +41,7 @@
                 <p>You're the only user in the CMS< and you can't lock yourself out.</p>
             <?php else : ?>
                 <form method="POST">
-                    <input type="hidden" name="lock_users" value="1" />
+                    <input type="hidden" name="lock_selected_users" value="1" />
 
                     <fieldset>
                         <legend>Which users would you like to <strong>prevent</strong> from logging in when the CMS is locked?</legend>
@@ -62,9 +62,26 @@
                         <?php endforeach ?>
 
                     </fieldset>
-                    <button class="button button-primary" type="submit">Update</button>
+                    <a class="wpl-settings__button-link" href="<?php menu_page_url($_GET['page']) ?>&lock_all_users=1">
+                        <button class="button" type="button">Lock out all</button>
+                    </a>
+                    <button class="button button-primary" type="submit">Lock out selected</button>
+
                 </form>
             <?php endif ?>
+        </div>
+
+        <div class="wpl-settings__block">
+            <h2>Lockout message</h2>
+
+            <form method="POST">
+                <input type="hidden" name="update_lockout_message" value="1" />
+
+                <label>What message do you want to show to locked out users?</label>
+                <input class="wpl-settings__input" type="text" name="lockout_message" value="<?= $lockoutMessage ?? '' ?>" />
+
+                <button class="button button-primary" type="submit">Update message</button>
+            </form>
         </div>
     </div>
 

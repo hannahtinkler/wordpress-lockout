@@ -20,6 +20,18 @@ class Settings
     private $lockedUsersOptionName = 'wordpress_lockout:locked_users';
 
     /**
+     * The option key that stores user custom lockout message
+     * @var string
+     */
+    private $lockoutMessageOptionName = 'wordpress_lockout:lockout_message';
+
+    /**
+     * The default lockout message
+     * @var string
+     */
+    private $defaultLockoutMessage = "You're currently locked out from this CMS, so you're unable to log in.";
+
+    /**
      * Gets the option that stores enabled post type tables and unserializes it
      * @return array
      */
@@ -43,7 +55,7 @@ class Settings
      * Gets the option that stores enabled post type tables and unserializes it
      * @return array
      */
-    public function getLockedStatus() : bool
+    public function getLockState() : bool
     {
         return (bool) get_option($this->isLockedOptionName) ?: false;
     }
@@ -56,5 +68,24 @@ class Settings
     public function updateLockState($state)
     {
         return update_option($this->isLockedOptionName, $state, null, true);
+    }
+
+    /**
+     * Gets the option that stores enabled post type tables and unserializes it
+     * @return array
+     */
+    public function getLockoutMessage()
+    {
+        return get_option($this->lockoutMessageOptionName) ?: $this->defaultLockoutMessage;
+    }
+
+    /**
+     * Save the lock state to the options table
+     *
+     * @return void
+     */
+    public function updateLockoutMessage($state)
+    {
+        return update_option($this->lockoutMessageOptionName, $state, null, true);
     }
 }
