@@ -8,8 +8,7 @@ however unless the CMS has also been 'locked' via the global switch in the `WP A
 ### Filters
 
 #### wordpress_lockout:locked_out_message:
-What it does:   Customise the message that is shown to locked out users.
-Default:        You're currently locked out from this CMS
+What it does:   Customise the message that is shown to locked out users (default: You're currently locked out from this CMS)
 
 ```
 add_filter('wordpress_lockout:locked_out_message', function ($message) {
@@ -19,8 +18,7 @@ add_filter('wordpress_lockout:locked_out_message', function ($message) {
 
 
 #### wordpress_lockout:settings_capability:
-What it does:   Customise the capability required to 'lock' the CMS.
-Default:        'manage_options'
+What it does:   Customise the capability required to 'lock' the CMS (default: 'manage_options')
 
 ```
 add_filter('wordpress_lockout:settings_capability', function ($capability) {
