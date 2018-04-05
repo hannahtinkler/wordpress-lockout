@@ -3,6 +3,7 @@
 namespace WordpressLockout\Lib;
 
 use WP_User;
+use WP_Error;
 use WordpressLockout\Lib\Filters;
 use WordpressLockout\Lib\Response;
 use WordpressLockout\Lib\Settings;
@@ -47,28 +48,33 @@ class Lockout
         $this->response = $response;
         $this->filters = $filters;
 
-        add_action('wp_login', [$this, 'lockoutIfRequired'], null, 2);
+        add_action('wp_authenticate_user', [$this, 'lockoutIfRequired'], null, 2);
     }
 
     /**
-     * Checks if lockout is enabled and if the user trying to log in should be
-     * locked out
+     * Checks if lockout is enabled and if the user trying to log in, return
+     * a WP error (which WP will show to the user on the login page as an error)
      *
      * @param  string $username
      * @param  WP_User $user
      * @return boolean
      */
-    public function lockoutIfRequired(string $username, WP_User $user)
+    public function lockoutIfRequired(WP_User $user)
     {
         $isLocked = $this->settings->getLockedStatus();
         $lockedUsers = $this->settings->getLockedUsers();
 
         if ($isLocked && in_array($user->ID, $lockedUsers)) {
-            $this->redirectToLockedOutPage();
-            return true;
+            $user = new WP_Error(
+                'Locked Out',
+                $this->filters->apply(
+                    $this->lockoutMessageFilterName,
+                    "You're currently locked out from this CMS, so you're unable to log in."
+                )
+            );
         }
 
-        return false;
+        return $user;
     }
 
     /**
@@ -76,14 +82,9 @@ class Lockout
      *
      * @return void
      */
-    private function redirectToLockedOutPage()
+    private function displayLockedOutPage()
     {
         $template = __DIR__ . '/../templates/locked-out.php';
-
-        $message = $this->filters->filter(
-            $this->lockoutMessageFilterName,
-            "You're currently locked out from this CMS"
-        );
 
         return $this->response->template($template, compact('message'));
     }

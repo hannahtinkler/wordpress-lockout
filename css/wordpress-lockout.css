@@ -1,0 +1,25 @@
+.wpl-settings__label {
+    margin-left: 2px;
+}
+
+.wpl-settings__block  {
+    margin: 30px 0 40px;
+}
+
+.wpl-settings__block--white  {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    padding: 20px;
+}
+
+.wpl-settings__col--left {
+    width: calc(100% - 400px);
+    float: left;
+}
+
+.wpl-settings__col--right {
+    float: right;
+    margin-top: 40px;
+    width: 350px;
+}

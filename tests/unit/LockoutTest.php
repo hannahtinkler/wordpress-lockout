@@ -27,7 +27,7 @@ class LockoutTest extends TestCase
         )->willReturn("This is the locked out template");
 
         $filters = $this->mock(Filters::class);
-        $filters->filter(
+        $filters->apply(
             'wordpress_lockout:locked_out_message',
             "You're currently locked out from this CMS"
         )->willReturn("You're currently locked out from this CMS");
@@ -59,7 +59,7 @@ class LockoutTest extends TestCase
         )->willReturn("This is the locked out template");
 
         $filters = $this->mock(Filters::class);
-        $filters->filter(
+        $filters->apply(
             'wordpress_lockout:locked_out_message',
             "You're currently locked out from this CMS"
         )->willReturn("You're currently locked out from this CMS");
@@ -91,7 +91,7 @@ class LockoutTest extends TestCase
         )->willReturn("This is the locked out template");
 
         $filters = $this->mock(Filters::class);
-        $filters->filter(
+        $filters->apply(
             'wordpress_lockout:locked_out_message',
             "You're currently locked out from this CMS"
         )->willReturn("You're currently locked out from this CMS");
@@ -123,7 +123,7 @@ class LockoutTest extends TestCase
         )->willReturn("This is the locked out template");
 
         $filters = $this->mock(Filters::class);
-        $filters->filter(
+        $filters->apply(
             'wordpress_lockout:locked_out_message',
             "You're currently locked out from this CMS"
         )->willReturn("You're currently locked out from this CMS");

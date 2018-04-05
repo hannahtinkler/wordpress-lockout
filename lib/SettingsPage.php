@@ -67,9 +67,30 @@ class SettingsPage
         $this->filters = $filters;
 
         $this->setCapability();
+        $this->enqueueStyleSheet();
         $this->checkForSubmissions();
 
-        $this->filters->filter('admin_menu', [$this, 'addSettingsPage'], 1);
+        $this->filters->add('admin_menu', [$this, 'addSettingsPage'], 1);
+    }
+
+    /**
+     * Adds the stylesheet that styles the settings page if we're on the
+     * settings page
+     *
+     * @return void
+     */
+    public function enqueueStyleSheet()
+    {
+        if (!empty($_GET['page']) && $_GET['page'] == $this->settingsPageSlug) {
+            add_action('admin_enqueue_scripts', function () {
+                wp_enqueue_style(
+                    'admin_css',
+                    plugin_dir_url(__DIR__) . '/css/wordpress-lockout.css',
+                    false,
+                    '1.0.0'
+                );
+            });
+        }
     }
 
     /**
@@ -110,7 +131,7 @@ class SettingsPage
      */
     private function setCapability()
     {
-        $this->capability = $this->filters->filter(
+        $this->capability = $this->filters->apply(
             $this->capabilityFilterName,
             'manage_options'
         );
@@ -128,8 +149,8 @@ class SettingsPage
             $this->redirect(['locked' => $_GET['lock']]);
         }
 
-        if (isset($_POST['locked_users'])) {
-            $this->settings->updateLockedUsers($_POST['locked_users']);
+        if (isset($_POST['lock_users'])) {
+            $this->settings->updateLockedUsers($_POST['locked_users'] ?? []);
             $this->redirect(['success' => 1]);
         }
     }
